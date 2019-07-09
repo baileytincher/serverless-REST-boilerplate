@@ -8,6 +8,7 @@ provider:
 
   environment:
     EXECUTION_STAGE: ${self:provider.stage}
+    SLS_DEBUG: "*"
 
 package:
   individually: true
@@ -19,7 +20,7 @@ package:
 
 functions:
   register:
-    handler: src/routes/users/register.handler
+    handler: src/routes/users/register.default
 
     events:
       - http:
