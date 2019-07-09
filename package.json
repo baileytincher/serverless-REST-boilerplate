@@ -1,0 +1,19 @@
+{
+  "name": "serverless-rest-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for creating API's with the Serverless framework and AWS. Provisions Lambda, API Gateway, and DynamoDB with help from a few useful tools/frameworks",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baileytincher/serverless-REST-boilerplate.git"
+  },
+  "author": "Bailey Tincher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/baileytincher/serverless-REST-boilerplate/issues"
+  },
+  "homepage": "https://github.com/baileytincher/serverless-REST-boilerplate#readme"
+}
