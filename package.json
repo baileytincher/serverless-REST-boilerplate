@@ -6,7 +6,7 @@
     "install": "",
     "deploy": "",
     "offline": "",
-    "lint": "eslint --fix \"./src/**/*.js\"",
+    "lint": "eslint --fix \"src/**/*.js\" && prettier --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,9 +22,12 @@
   "dependencies": {
     "@middy/core": "^1.0.0-alpha.34",
     "@middy/http-cors": "^1.0.0-alpha.34",
+    "@middy/http-error-handler": "^1.0.0-alpha.34",
     "@middy/http-json-body-parser": "^1.0.0-alpha.34",
     "@middy/validator": "^1.0.0-alpha.34",
-    "dynamoose": "^1.10.0"
+    "dynamoose": "^1.10.0",
+    "eslint-config-google": "^0.13.0",
+    "prettier": "^1.18.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
