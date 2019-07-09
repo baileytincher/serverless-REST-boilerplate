@@ -1,6 +1,6 @@
 const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -32,12 +32,12 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'middleware': path.resolve(__dirname, 'src/middleware/'),
-      'src': path.resolve(__dirname, 'src/'),
+      middleware: path.resolve(__dirname, 'src/middleware/'),
+      src: path.resolve(__dirname, 'src/'),
       'input-schemas': path.resolve(__dirname, 'src/input-schemas/'),
-      'routes': path.resolve(__dirname, 'src/routes/'),
-      'callbacks': path.resolve(__dirname, 'src/callbacks/'),
-
+      routes: path.resolve(__dirname, 'src/routes/'),
+      callbacks: path.resolve(__dirname, 'src/callbacks/'),
+      models: path.resolve(__dirname, 'src/models/')
     }
   }
 };

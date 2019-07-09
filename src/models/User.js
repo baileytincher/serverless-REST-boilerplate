@@ -1,6 +1,6 @@
 'use strict';
 
-import dynamoose, {Schema} from 'dynamoose';
+import dynamoose, { Schema } from 'dynamoose';
 import bcrypt from 'bcryptjs';
 
 const SALT_ROUNDS = 8;
@@ -9,12 +9,12 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    hashKey: true,
+    hashKey: true
   },
   passwordHash: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 UserSchema.methods.setPassword = async function(password) {
