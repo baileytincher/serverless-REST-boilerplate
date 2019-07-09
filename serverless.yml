@@ -3,14 +3,65 @@ service: serverless-REST-boilerplate
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
+  stage: ${opt:stage,'dev'}
   region: us-east-2
+
+  environment:
+    EXECUTION_STAGE: ${self:provider.stage}
 
 package:
   individually: true
   exclude:
-    - README.md
+   - README.md
+   - .eslintrc.js
+   - .gitignore
+   - .git/**
 
 functions:
   register:
     handler: src/routes/users/register.handler
+
+    events:
+      - http:
+          path: /users/register
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    usersTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:service}-users
+        AttributeDefinitions:
+        - AttributeName: "username"
+          AttributeType: "S"
+        - AttributeName: "lastName"
+          AttributeType: "S"
+        KeySchema:
+        - AttributeName: "username"
+          KeyType: "HASH"
+        - AttributeName: "lastName"
+          KeyType: "RANGE"
+
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+custom:
+  stages:
+    - dev
+    - test
+    - v1.0
+  serverless-offline:
+    prefix: ${self:provider.stage}
+    port: 3000
+    stage: ${self:provider.stage}
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+plugins:
+  - serverless-stage-manager
+  - serverless-webpack
+  - serverless-offline
