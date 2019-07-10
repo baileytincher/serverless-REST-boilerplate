@@ -1,6 +1,10 @@
 'use strict';
 
 import dynamoose, { Schema } from 'dynamoose';
+if (process.env.IS_OFFLINE) {
+  dynamoose.local();
+}
+
 import bcrypt from 'bcryptjs';
 
 const SALT_ROUNDS = 8;
