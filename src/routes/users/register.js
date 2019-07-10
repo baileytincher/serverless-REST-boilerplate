@@ -8,8 +8,12 @@ import User from 'models/User';
 
 import { internalServerErrorCB } from 'callbacks/shared';
 import { userCreatedCB } from 'callbacks/users/register-cb';
+import { userAlreadyExistsErrorCB } from 'callbacks/users/shared';
 
 const handler = async ({ body: { user } }) => {
+  const password = user.password;
+  delete user.password;
+
   let newUser;
   try {
     newUser = new User(user);
@@ -19,18 +23,22 @@ const handler = async ({ body: { user } }) => {
   }
 
   try {
-    await newUser.setPassword(user.password);
+    await newUser.setPassword(password);
   } catch (err) {
     console.log(err);
     return internalServerErrorCB;
   }
 
   try {
-    const savedUser = await newUser.save();
-    return userCreatedCB(savedUser);
+    await newUser.save({ overwrite: false });
+    return userCreatedCB(newUser.getReturnableUser());
   } catch (err) {
-    console.log(err);
-    return internalServerErrorCB;
+    if (err.code === 'ConditionalCheckFailedException') {
+      return userAlreadyExistsErrorCB(user.username);
+    } else {
+      console.log(err);
+      return internalServerErrorCB;
+    }
   }
 };
 

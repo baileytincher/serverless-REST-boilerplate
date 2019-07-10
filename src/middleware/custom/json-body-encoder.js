@@ -1,9 +1,13 @@
 'use strict';
 
 const jsonBodyEncoder = () => ({
-  after: ({ response: { body } }, next) => {
-    if (typeof body !== 'string') {
-      body = JSON.stringify(body);
+  after: (handler, next) => {
+    if (
+      handler.hasOwnProperty('response') &&
+      handler.response.hasOwnProperty('body') &&
+      typeof handler.response.body !== 'string'
+    ) {
+      handler.response.body = JSON.stringify(handler.response.body);
     }
 
     return next();
