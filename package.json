@@ -43,6 +43,7 @@
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "serverless-aws-documentation": "^0.8.0"
   }
 }

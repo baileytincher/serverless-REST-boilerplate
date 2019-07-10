@@ -90,6 +90,7 @@ custom:
       convertEmptyValues: true
 
 plugins:
+  - serverless-aws-documentation
   - serverless-stage-manager
   - serverless-webpack
   - serverless-dynamodb-local
