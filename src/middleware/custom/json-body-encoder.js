@@ -1,5 +1,10 @@
 'use strict';
 
+/** Middleware for the Middy framework that stringifies the
+ * response body for a Serverless REST api.
+ *
+ * @return {Object} The middleware.
+ */
 const jsonBodyEncoder = () => ({
   after: (handler, next) => {
     if (

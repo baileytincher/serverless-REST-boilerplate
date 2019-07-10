@@ -26,10 +26,11 @@ provider:
 package:
   individually: true
   exclude:
-   - README.md
+   - ./**/*.md
    - .eslintrc.js
    - .prettierrc.js
    - .gitignore
+   - offline.sh
    - .dynamodb/**
 
 functions:

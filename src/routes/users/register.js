@@ -12,7 +12,7 @@ import { userAlreadyExistsErrorCB } from 'callbacks/users/shared';
 
 const handler = async ({ body: { user } }) => {
   const password = user.password;
-  delete user.password;
+  delete user.password; // To keep password out of the User obj we create
 
   let newUser;
   try {
@@ -42,4 +42,5 @@ const handler = async ({ body: { user } }) => {
   }
 };
 
+// Wrap our handler with middleware
 export default middyfy(handler, RegisterInputSchema);
