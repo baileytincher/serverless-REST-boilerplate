@@ -16,19 +16,26 @@ const RegisterInputSchema = {
   properties: {
     body: {
       type: 'object',
-      required: ['username', 'password'],
+      required: ['user'],
       additionalProperties: false,
       properties: {
-        username: {
-          type: 'string',
-          minLength: MIN_USERNAME_LENGTH,
-          maxLength: MAX_USERNAME_LENGTH,
-          pattern: USERNAME_PATTERN
-        },
-        password: {
-          type: 'string',
-          minLength: MIN_PASSWORD_LENGTH,
-          maxLength: MAX_PASSWORD_LENGTH
+        user: {
+          type: 'object',
+          required: ['username', 'password'],
+          additionalProperties: false,
+          properties: {
+            username: {
+              type: 'string',
+              minLength: MIN_USERNAME_LENGTH,
+              maxLength: MAX_USERNAME_LENGTH,
+              pattern: USERNAME_PATTERN
+            },
+            password: {
+              type: 'string',
+              minLength: MIN_PASSWORD_LENGTH,
+              maxLength: MAX_PASSWORD_LENGTH
+            }
+          }
         }
       }
     }

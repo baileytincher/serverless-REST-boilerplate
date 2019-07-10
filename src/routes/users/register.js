@@ -19,14 +19,14 @@ const handler = async ({ body: { user } }) => {
   }
 
   try {
-    newUser.setPassword(user.password);
+    await newUser.setPassword(user.password);
   } catch (err) {
     console.log(err);
     return internalServerErrorCB;
   }
 
   try {
-    const savedUser = newUser.save();
+    const savedUser = await newUser.save();
     return userCreatedCB(savedUser);
   } catch (err) {
     console.log(err);

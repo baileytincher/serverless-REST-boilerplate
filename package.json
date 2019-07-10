@@ -4,7 +4,8 @@
   "description": "Boilerplate for creating API's with the Serverless framework and AWS. Provisions Lambda, API Gateway, and DynamoDB with help from a few useful tools/frameworks",
   "scripts": {
     "deploy": "sls deploy",
-    "offline": "sls offline start",
+    "offline": "source offline.sh && sls offline start",
+    "install": "sls dynamodb install",
     "lint": "eslint --fix \"src/**/*.js\" && prettier --write \"src/**/*.js\""
   },
   "repository": {
