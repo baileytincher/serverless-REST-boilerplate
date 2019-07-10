@@ -5,7 +5,7 @@
   "scripts": {
     "deploy": "sls deploy",
     "offline": "source offline.sh && sls offline start",
-    "installOffline": "sls dynamodb install",
+    "install": "sls dynamodb install",
     "lint": "eslint --fix \"src/**/*.js\" && prettier --write \"src/**/*.js\""
   },
   "repository": {
