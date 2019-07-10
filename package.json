@@ -24,8 +24,7 @@
     "@middy/http-json-body-parser": "^1.0.0-alpha.34",
     "@middy/validator": "^1.0.0-alpha.34",
     "bcryptjs": "^2.4.3",
-    "dynamoose": "^1.10.0",
-    "serverless-dynamodb-client": "0.0.2"
+    "dynamoose": "^1.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
