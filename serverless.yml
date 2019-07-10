@@ -7,10 +7,7 @@ provider:
   region: us-east-2
 
   environment:
-    EXECUTION_STAGE: ${self:provider.stage}
-    SERVICE_PREFIX: ${self:service}
     USERS_TABLE_NAME: ${self:custom.usersTableName}
-    SLS_DEBUG: "*"
 
   iamRoleStatements:
   - Effect: 'Allow'
@@ -33,7 +30,7 @@ package:
    - .eslintrc.js
    - .prettierrc.js
    - .gitignore
-   - .git/**
+   - .dynamodb/**
 
 functions:
   register:
