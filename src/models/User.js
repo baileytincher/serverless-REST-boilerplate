@@ -32,7 +32,7 @@ UserSchema.methods.setPassword = async function(password) {
 
 UserSchema.methods.getReturnableUser = function() {
   return {
-    username: this.username,
+    username: this.username
   };
 };
 
