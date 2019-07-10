@@ -79,8 +79,20 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
 
 plugins:
   - serverless-stage-manager
   - serverless-webpack
+  - serverless-dynamodb-local
   - serverless-offline
