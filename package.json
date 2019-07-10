@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Boilerplate for creating API's with the Serverless framework and AWS. Provisions Lambda, API Gateway, and DynamoDB with help from a few useful tools/frameworks",
   "scripts": {
-    "deploy": "sls deploy",
     "offline": "source offline.sh && sls offline start",
     "install": "sls dynamodb install",
-    "lint": "eslint --fix \"src/**/*.js\" && prettier --write \"src/**/*.js\""
+    "lint": "eslint --fix \"src/**/*.js\" && prettier --write \"src/**/*.js\"",
+    "commit": "npm run lint && git add . && git commit && git push"
   },
   "repository": {
     "type": "git",
