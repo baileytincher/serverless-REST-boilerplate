@@ -3,6 +3,9 @@ and AWS. Provisions Lambda, API Gateway, and DynamoDB with help from a few usefu
 tools/frameworks.
 
 ## Installation
+This will install the necessary dependencies from `npm` that are defined in the 
+package.json, as well as DynamoDB Local for offline testing.
+
 ```bash
 npm i
 ```
@@ -64,4 +67,38 @@ credentials to be already configured.
 
 ```bash
 sls deploy 
+```
+
+### Packaging
+This project uses `serverless-webpack` to handle packaging, as well as 
+Babel to transpile the code to be compatible with modules (`import`/`export`).
+These items are defined in the `.babelrc` and `webpack.config.js` files. Also 
+from `webpack` we take advantage of [module aliases]() to be capable of 
+shortening our paths for imports.
+
+## Project structure
+The most important files to note are below
+
+```
+serverless.yml
+package.json 
+webpack.config.js 
+src/
+  callbacks/
+    shared.js
+    users/
+      register-cb.js 
+      shared.js
+  input-schemas/
+    users/
+      register-is.js
+  middleware/
+    wrapper.js
+    custom/
+      json-body-encoder.js
+  models/
+    User.js
+  routes/
+    users/
+      register.js
 ```
