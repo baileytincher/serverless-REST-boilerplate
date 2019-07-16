@@ -1,5 +1,3 @@
-'use strict';
-
 export const internalServerErrorCB = {
   statusCode: 500,
   body: {

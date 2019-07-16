@@ -1,5 +1,3 @@
-'use strict';
-
 /** Middleware for the Middy framework that stringifies the
  * response body for a Serverless REST api.
  *

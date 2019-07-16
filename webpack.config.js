@@ -31,13 +31,14 @@ module.exports = {
     ]
   },
   resolve: {
-    alias: { // TODO: Define other local module aliases here
-      'middleware': path.resolve(__dirname, 'src/middleware/'),
-      'src': path.resolve(__dirname, 'src/'),
+    alias: {
+      // TODO: Define other local module aliases here
+      middleware: path.resolve(__dirname, 'src/middleware/'),
+      src: path.resolve(__dirname, 'src/'),
       'input-schemas': path.resolve(__dirname, 'src/input-schemas/'),
-      'routes': path.resolve(__dirname, 'src/routes/'),
-      'callbacks': path.resolve(__dirname, 'src/callbacks/'),
-      'models': path.resolve(__dirname, 'src/models/')
+      routes: path.resolve(__dirname, 'src/routes/'),
+      callbacks: path.resolve(__dirname, 'src/callbacks/'),
+      models: path.resolve(__dirname, 'src/models/')
     }
   }
 };

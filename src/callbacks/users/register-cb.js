@@ -1,5 +1,3 @@
-'use strict';
-
 export const userCreatedCB = (user) => ({
   statusCode: 200,
   body: {

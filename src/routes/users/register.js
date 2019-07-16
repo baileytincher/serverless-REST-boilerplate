@@ -1,5 +1,3 @@
-'use strict';
-
 import middyfy from 'middleware/wrapper';
 
 import RegisterInputSchema from 'input-schemas/users/register-is';

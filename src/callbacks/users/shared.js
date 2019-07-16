@@ -1,5 +1,3 @@
-'use strict';
-
 export const userAlreadyExistsErrorCB = (input) => ({
   statusCode: 400,
   body: {

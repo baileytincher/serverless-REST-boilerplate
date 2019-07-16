@@ -1,5 +1,3 @@
-'use strict';
-
 import middy from '@middy/core';
 import validator from '@middy/validator';
 import cors from '@middy/http-cors';

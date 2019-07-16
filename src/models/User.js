@@ -1,5 +1,3 @@
-'use strict';
-
 import dynamoose, { Schema } from 'dynamoose';
 if (process.env.IS_OFFLINE) {
   dynamoose.local();

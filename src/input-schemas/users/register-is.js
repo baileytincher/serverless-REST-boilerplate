@@ -1,5 +1,3 @@
-'use strict';
-
 const MIN_USERNAME_LENGTH = 4;
 const MAX_USERNAME_LENGTH = 16;
 
