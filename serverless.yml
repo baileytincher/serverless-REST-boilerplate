@@ -42,6 +42,7 @@ functions:
           path: /users/register
           method: post
           cors: true
+          documentation: ${file(./serverless-config/docs/users/register.yml)}
 
 resources:
   Resources:
@@ -88,10 +89,70 @@ custom:
       migrate: true
       seed: true
       convertEmptyValues: true
+  documentation:
+    # this is general info about the API
+    api:
+      info:
+        version: '1'
+        title: Serverless REST Boilerplate API
+        description: A simple example demonstrating serverless usage
+        termsOfService: https://www.google.com
+        contact:
+          name: Bailey Tincher
+          url: https://btin.io
+          email: bailey.tincher@btin.io
+        license:
+          name: MIT
+          url: https://www.github.com
+      tags:
+        -
+          name: Tag1
+          description: The first tag
+    models:
+      -
+        name: NewUser
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            user:
+              type: object 
+              properties:
+                username:
+                  type: string 
+                password:
+                  type: string
+      -
+        name: CreatedUser
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            user:
+              type: object 
+              properties:
+                username:
+                  type: string
+                message:
+                  type: string
+      - 
+        name: ServerError
+        contentType: "application/json"
+        schema:
+          type: object 
+          properties:
+            message:
+              type: string
+  commonModelSchemaFragments:
+    # defining common fragments means you can reference them with a single line
+    ServerErrorResponse:
+      statusCode: '500'
+      responseModels:
+        "application/json": ServerError
 
 plugins:
-  - serverless-aws-documentation
   - serverless-stage-manager
   - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-aws-documentation

@@ -1,0 +1,13 @@
+summary: Creates a user
+tags:
+  - register
+description: >
+  Registers a user for the service by storing their information 
+  and a hash of their password in the users database.
+requestModels:
+  "application/json": NewUser
+methodResponses:
+  -
+    statusCode: '200'
+    responseModels:
+      "application/json": CreatedUser
