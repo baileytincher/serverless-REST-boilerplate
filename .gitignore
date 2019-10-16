@@ -6,3 +6,4 @@ jspm_packages
 .serverless
 .webpack
 .dynamodb
+.DS_Store
