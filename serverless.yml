@@ -96,18 +96,16 @@ custom:
         version: '1'
         title: Serverless REST Boilerplate API
         description: A simple example demonstrating serverless usage
-        termsOfService: https://www.google.com
         contact:
           name: Bailey Tincher
           url: https://btin.io
           email: bailey.tincher@btin.io
         license:
           name: MIT
-          url: https://www.github.com
       tags:
         -
-          name: Tag1
-          description: The first tag
+          name: users
+          description: Effects a user
     models:
       -
         name: NewUser
@@ -135,6 +133,16 @@ custom:
                   type: string
                 message:
                   type: string
+      - 
+        name: UserAlreadyExistsError
+        contentType: "application/json"
+        schema:
+          type: object 
+          properties:
+            message:
+              type: string
+            input:
+              type: string
       - 
         name: ServerError
         contentType: "application/json"

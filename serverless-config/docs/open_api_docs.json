@@ -1,0 +1,114 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "A simple example demonstrating serverless usage",
+    "version" : "1.0",
+    "title" : "Serverless REST Boilerplate",
+    "contact" : {
+      "name" : "Bailey Tincher",
+      "url" : "https://btin.io",
+      "email" : "bailey.tincher@btin.io"
+    },
+    "license" : {
+      "name" : "MIT"
+    }
+  },
+  "host" : "c8sjmoy85l.execute-api.us-east-2.amazonaws.com",
+  "basePath" : "/dev",
+  "tags" : [ {
+    "name" : "Users"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/users/register" : {
+      "post" : {
+        "tags" : [ "Users" ],
+        "summary" : "Creates a user",
+        "description" : "Registers a user for the service by storing their information  and a hash of their password in the users database.\n",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "NewUser",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/NewUser"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/CreatedUser"
+            }
+          },
+          "400" : {
+            "description" : "400 response",
+            "schema" : {
+              "$ref" : "#/definitions/UserAlreadyExistsError"
+            }
+          },
+          "500" : {
+            "description" : "500 response",
+            "schema" : {
+              "$ref" : "#/definitions/ServerError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "UserAlreadyExistsError" : {
+      "type" : "object",
+      "properties" : {
+        "input" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CreatedUser" : {
+      "type" : "object",
+      "properties" : {
+        "user" : {
+          "type" : "object",
+          "properties" : {
+            "message" : {
+              "type" : "string"
+            },
+            "username" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "ServerError" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "NewUser" : {
+      "type" : "object",
+      "properties" : {
+        "user" : {
+          "type" : "object",
+          "properties" : {
+            "password" : {
+              "type" : "string"
+            },
+            "username" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
