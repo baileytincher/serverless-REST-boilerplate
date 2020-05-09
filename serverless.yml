@@ -1,166 +1,57 @@
-service: serverless-REST-boilerplate
+service: sls-REST-TS
 
-provider:
-  name: aws
-  runtime: nodejs10.x
-  stage: ${opt:stage,'dev'}
-  region: us-east-2
-
-  environment:
-    USERS_TABLE_NAME: ${self:custom.usersTableName}
-
-  iamRoleStatements:
-  - Effect: 'Allow'
-    Action:
-      - dynamodb:Query
-      - dynamodb:Scan
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-    Resource:
-      Fn::GetAtt:
-        - usersTable
-        - Arn
-
-package:
-  individually: true
-  exclude:
-   - ./**/*.md
-   - .eslintrc.js
-   - .prettierrc.js
-   - .gitignore
-   - offline.sh
-   - .dynamodb/**
-
-functions:
-  register:
-    handler: src/routes/users/register.default
-
-    events:
-      - http:
-          path: /users/register
-          method: post
-          cors: true
-          documentation: ${file(./serverless-config/docs/users/register.yml)}
-
-resources:
-  Resources:
-    usersTable:
-      Type: "AWS::DynamoDB::Table"
-      Properties:
-        TableName: ${self:custom.usersTableName}
-        AttributeDefinitions:
-        - AttributeName: "username"
-          AttributeType: "S"
-        # - AttributeName: "lastName"
-        #   AttributeType: "S"
-        KeySchema:
-        - AttributeName: "username"
-          KeyType: "HASH"
-        # - AttributeName: "lastName"
-        #   KeyType: "RANGE"
-
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
-
-custom:
-  usersTableName: ${self:service}-${self:provider.stage}-users
-  stages:
-    - dev
-    - test
-    - v1.0
-  serverless-offline:
-    prefix: ${self:provider.stage}
-    port: 3000
-    stage: ${self:provider.stage}
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true
-  dynamodb:
-    stages:
-      - dev
-    start:
-      port: 8000
-      inMemory: true
-      heapInitial: 200m
-      heapMax: 1g
-      migrate: true
-      seed: true
-      convertEmptyValues: true
-  documentation:
-    # this is general info about the API
-    api:
-      info:
-        version: '1'
-        title: Serverless REST Boilerplate API
-        description: A simple example demonstrating serverless usage
-        contact:
-          name: Bailey Tincher
-          url: https://btin.io
-          email: bailey.tincher@btin.io
-        license:
-          name: MIT
-      tags:
-        -
-          name: users
-          description: Effects a user
-    models:
-      -
-        name: NewUser
-        contentType: "application/json"
-        schema:
-          type: object
-          properties:
-            user:
-              type: object 
-              properties:
-                username:
-                  type: string 
-                password:
-                  type: string
-      -
-        name: CreatedUser
-        contentType: "application/json"
-        schema:
-          type: object
-          properties:
-            user:
-              type: object 
-              properties:
-                username:
-                  type: string
-                message:
-                  type: string
-      - 
-        name: UserAlreadyExistsError
-        contentType: "application/json"
-        schema:
-          type: object 
-          properties:
-            message:
-              type: string
-            input:
-              type: string
-      - 
-        name: ServerError
-        contentType: "application/json"
-        schema:
-          type: object 
-          properties:
-            message:
-              type: string
-  commonModelSchemaFragments:
-    # defining common fragments means you can reference them with a single line
-    ServerErrorResponse:
-      statusCode: '500'
-      responseModels:
-        "application/json": ServerError
 
 plugins:
   - serverless-stage-manager
   - serverless-webpack
-  - serverless-dynamodb-local
   - serverless-offline
-  - serverless-aws-documentation
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage,'dev'}
+  region: us-east-1
+
+  environment:
+    EXECUTION_STAGE: ${self:provider.stage}
+    AWS_DEPLOYMENT_REGION: ${self:provider.region}
+    GOOGLE_AUTH_WEB_CLIENT_ID: ${file(./serverless-config/secrets.json):${self:provider.stage}.GOOGLE_AUTH_WEB_CLIENT_ID}
+    GOOGLE_AUTH_WEB_CLIENT_SECRET: ${file(./serverless-config/secrets.json):${self:provider.stage}.GOOGLE_AUTH_WEB_CLIENT_SECRET}
+    MONGODB_URI: ${file(./serverless-config/secrets.json):${self:provider.stage}.MONGODB_URI}
+
+
+custom:
+  stages:
+    - dev
+    - test
+    - v1.0
+
+  serverless-offline:
+    prefix: users
+    port: 3000
+    stage: ${self:provider.stage}
+
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    packager: 'yarn'
+    includeModules: true
+
+functions:
+  test:
+    handler: src/routes/test.handler
+    events:
+      - http:
+          path: /test
+          method: get
+          cors: true
+          authorizer:
+            name: optional-user-authorizer
+            identitySource: method.request.header.Authorization
+            type: token
+
+  optional-user-authorizer:
+    handler: src/authorizer/authorizer.optionalHandler
+
+  required-user-authorizer:
+    handler: src/authorizer/authorizer.requiredHandler

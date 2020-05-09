@@ -4,9 +4,9 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+# Webpack directories
 .webpack
-.dynamodb
-.DS_Store
-bin/
-bin
-bin/serverless bin/sls bin/slss
+
+# Project secrets
+*/secrets.json

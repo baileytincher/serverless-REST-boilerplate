@@ -1,44 +1,37 @@
-const slsw = require('serverless-webpack');
-const nodeExternals = require('webpack-node-externals');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const slsw = require('serverless-webpack');
 
 module.exports = {
+  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
-  target: 'node',
-  // Generate sourcemaps for proper error messages
-  devtool: 'source-map',
+  devtool: 'source-map', 
   // Since 'aws-sdk' is not compatible with webpack,
   // we exclude all node dependencies
   externals: [nodeExternals()],
-  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
-  optimization: {
-    // We no not want to minimize our code.
-    minimize: false
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    alias: {
+      src: path.resolve(__dirname, 'src/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      middleware: path.resolve(__dirname, 'src/middleware/'),
+      models: path.resolve(__dirname, 'src/models/'),
+      routes: path.resolve(__dirname, 'src/routes/'),
+      secrets: path.resolve(__dirname, 'src/secrets/'),
+      'input-schemas': path.resolve(__dirname, 'src/input-schemas/'),
+      authorizer: path.resolve(__dirname, 'src/authorizer/'),
+    }
   },
-  performance: {
-    // Turn off size warnings for entry points
-    hints: false
+  output: {
+    libraryTarget: 'commonjs',
+    path: path.join(__dirname, '.webpack'),
+    filename: '[name].js',
   },
-  // Run babel on all .js files and skip those in node_modules
+  target: 'node',
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: __dirname,
-        exclude: /node_modules/
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      // TODO: Define other local module aliases here
-      middleware: path.resolve(__dirname, 'src/middleware/'),
-      src: path.resolve(__dirname, 'src/'),
-      'input-schemas': path.resolve(__dirname, 'src/input-schemas/'),
-      routes: path.resolve(__dirname, 'src/routes/'),
-      callbacks: path.resolve(__dirname, 'src/callbacks/'),
-      models: path.resolve(__dirname, 'src/models/')
-    }
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      { test: /\.tsx?$/, loader: 'ts-loader' },
+    ],
   }
 };

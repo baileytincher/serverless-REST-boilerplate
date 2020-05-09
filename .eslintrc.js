@@ -1,19 +1,16 @@
 module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
-    es6: true
-  },
-  extends: ['google', 'prettier'],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
-  },
+  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
+    ecmaVersion: 2020,
+    sourceType: "module"
   },
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
   rules: {
-    strict: 2
-  }
+    strict: 2,
+    '@typescript-eslint/camelcase': 1
+  },
 };

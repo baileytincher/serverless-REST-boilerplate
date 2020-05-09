@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["es2019"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    // "strict": true,
+    "target": "es2016",
+    "outDir": "lib",
+    "baseUrl": "./src",
+    "paths": {
+      "models/*": ["models/*"],
+      "middleware/*": ["middleware/*"],
+      "input-schemas/*": ["input-schemas/*"],
+      "secrets/*": ["secrets/*"],
+      "routes/*": ["routes/*"],
+      "responses/*": ["responses/*"],
+      "utils/*": ["utils/*"],
+      "authorizer/*": ["authorizer/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
