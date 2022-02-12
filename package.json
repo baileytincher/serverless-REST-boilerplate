@@ -28,7 +28,7 @@
     "@middy/validator": "^1.0.0",
     "@types/aws-lambda": "^8.10.51",
     "@types/node": "^13.13.5",
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "ajv-keywords": "^3.4.1",
     "google-auth-library": "^6.0.0",
     "http-errors": "^1.7.3",
